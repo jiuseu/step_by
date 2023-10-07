@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="https://ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/basic.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Register</title>
+</head>
+<div layout:fragment="content">
+ <div class="row mt-3">
+   <div class="col">
+     <div class="card">
+       <div class="card-header">
+         Board Register
+       </div><!-- card header end -->
+       <div class="card-body">
+         <form action="/board/register" method="post">
+           <div class="input-group mb-3">
+             <span class="input-group-text">Title</span>
+             <input type="text" class="form-control" name="title" placeholder="Title">
+           </div>
+           <div class="input-group mb-3">
+             <span class="input-group-text">Content</span>
+             <textarea class="form-control col-sm-5" rows="5"  name="content" placeholder="Content"></textarea>
+           </div>
+           <div class="input-group mb-3">
+             <span class="input-group-text">User</span>
+             <input type="text" class="form-control" name="user" placeholder="User">
+           </div>
+           <div class="my-4">
+             <div class="float-end">
+               <button type="sumbit" class="btn btn-primary submitBtn">Submit</button>
+               <button type="reset" class="btn btn-secondary resetBtn">ReSet</button>
+             </div>
+           </div>
+         </form>
+       </div><!-- card body end -->
+     </div><!-- card end -->
+   </div><!-- col end -->
+ </div><!-- row end -->
+</div><!-- layout content end -->
+<script layout:fragment="javascript" th:inline="javascript">
+  const errors = [[${errors}]]
+  let errorMsg = ''
+
+  if(errors){
+  for(let i = 0; i < errors.length; i++){
+    errorMsg += `${errors[i].field}은(는) ${errors[i].code} \n`
+   }
+   alert(errorMsg)
+  }
+</script>
+</html>
