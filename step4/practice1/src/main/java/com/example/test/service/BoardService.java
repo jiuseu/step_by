@@ -1,6 +1,7 @@
 package com.example.test.service;
 
 import com.example.test.dto.BoardDTO;
+import com.example.test.dto.BoardListReplyCountDTO;
 import com.example.test.dto.PageRequestDTO;
 import com.example.test.dto.PageResponseDTO;
 
@@ -15,4 +16,6 @@ public interface BoardService {
     void remove(Long bno);
 
     PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO);
+
+    PageResponseDTO<BoardListReplyCountDTO> listReply(PageRequestDTO pageRequestDTO);
 }

@@ -59,8 +59,8 @@ public class BoardServiceTest {
     @Test
     public void ListTest(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .type("tcu")
-                .keyword("1")
+                .type("tc")
+                .keyword("Title")
                 .build();
 
         PageResponseDTO pageResponseDTO = boardService.list(pageRequestDTO);

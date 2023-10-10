@@ -2,6 +2,7 @@ package com.example.test.service;
 
 import com.example.test.domain.Board;
 import com.example.test.dto.BoardDTO;
+import com.example.test.dto.BoardListReplyCountDTO;
 import com.example.test.dto.PageRequestDTO;
 import com.example.test.dto.PageResponseDTO;
 import com.example.test.repository.BoardRepository;
@@ -83,6 +84,22 @@ public class BoardServiceImpl implements BoardService{
                 .pageRequestDTO(pageRequestDTO)
                 .dtoList(list)
                 .total((int)result.getTotalElements())
+                .build();
+    }
+
+    @Override
+    public PageResponseDTO<BoardListReplyCountDTO> listReply(PageRequestDTO pageRequestDTO){
+
+        String[] types = pageRequestDTO.getTypes();
+        String keyword = pageRequestDTO.getKeyword();
+        Pageable pageable = pageRequestDTO.getPageable("bno");
+
+        Page<BoardListReplyCountDTO> result = boardRepository.boardOfReply(types,keyword,pageable);
+
+        return PageResponseDTO.<BoardListReplyCountDTO>withAll()
+                .total((int)result.getTotalElements())
+                .dtoList(result.getContent())
+                .pageRequestDTO(pageRequestDTO)
                 .build();
     }
 }

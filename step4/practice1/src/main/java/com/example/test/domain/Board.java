@@ -28,4 +28,8 @@ public class Board extends BaseEntity{
         this.title = title;
         this.content = content;
     }
+
+    public void MapperSetBno(Long bno){
+        this.bno = bno;
+    }
 }

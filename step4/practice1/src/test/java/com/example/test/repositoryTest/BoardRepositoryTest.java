@@ -1,11 +1,16 @@
 package com.example.test.repositoryTest;
 
 import com.example.test.domain.Board;
+import com.example.test.dto.BoardListReplyCountDTO;
 import com.example.test.repository.BoardRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
@@ -54,5 +59,33 @@ public class BoardRepositoryTest {
         Optional<Board> result = boardRepository.findById(1L);
         Board board = result.orElseThrow();
         boardRepository.delete(board);
+    }
+
+    @Test
+    public void searchTest(){
+
+        String[] types = {};
+        String keyword = "";
+        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
+
+        Page<Board> list = boardRepository.searchAll(types,keyword,pageable);
+
+        list.getContent().forEach(i ->{
+            log.info(i);
+        });
+    }
+
+    @Test
+    public void searchReplyTest(){
+
+        String[] types = {};
+        String keyword = "";
+        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
+
+        Page<BoardListReplyCountDTO> list = boardRepository.boardOfReply(types,keyword,pageable);
+
+        list.getContent().forEach(i ->{
+            log.info(i);
+        });
     }
 }
