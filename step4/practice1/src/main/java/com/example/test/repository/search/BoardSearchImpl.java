@@ -53,6 +53,18 @@ public class BoardSearchImpl extends Querydsl5RepositorySupport implements Board
         );
     }
 
+    private BooleanExpression CheckAll(String[] types, String keyword){
+
+        if((types == null ||types.length == 0 ) && keyword == null){
+            return board.bno.gt(0L);
+        }else{
+            return  board.bno.gt(0L)
+                    .and(CheckTitle(types,keyword)
+                            .or(CheckContent(types,keyword))
+                            .or(CheckUser(types, keyword)));
+        }
+    }
+
     private BooleanExpression CheckTitle(String[] types, String keyword){
         if(types == null || keyword == null){
             return null;

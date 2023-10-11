@@ -64,8 +64,8 @@ public class BoardRepositoryTest {
     @Test
     public void searchTest(){
 
-        String[] types = {};
-        String keyword = "";
+        String[] types = {"t","c","w"};
+        String keyword = "1";
         Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
 
         Page<Board> list = boardRepository.searchAll(types,keyword,pageable);
