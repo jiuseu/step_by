@@ -13,6 +13,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.util.stream.IntStream;
+
 @SpringBootTest
 @Log4j2
 public class ReplyRepositoryTest {
@@ -25,13 +27,15 @@ public class ReplyRepositoryTest {
 
         Board board = Board.builder().bno(100L).build();
 
-        Reply reply = Reply.builder()
-                .board(board)
-                .replyer("replyer1")
-                .replyText("댓글 테스트")
-                .build();
+        IntStream.rangeClosed(7,107).forEach(i ->{
+            Reply reply = Reply.builder()
+                    .board(board)
+                    .replyer("replyer"+i)
+                    .replyText("댓글 테스트.."+i)
+                    .build();
 
-        replyRepository.save(reply);
+            replyRepository.save(reply);
+        });
     }
 
     @Test

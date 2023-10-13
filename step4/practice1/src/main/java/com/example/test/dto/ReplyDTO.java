@@ -1,5 +1,7 @@
 package com.example.test.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -26,7 +28,9 @@ public class ReplyDTO {
     @NotNull
     private Long bno;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDate;
 
+    @JsonIgnore
     private LocalDateTime modDate;
 }
