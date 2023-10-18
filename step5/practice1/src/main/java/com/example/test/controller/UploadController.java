@@ -26,7 +26,7 @@ public class UploadController {
 
     @Value("${com.example.upload.path}")
     private String uploadPath;
-
+    //@RequestBody 엄포트를 oas03을 하면 인식은 제대로 됨 ->원인은 아직 파악 못함
     @Operation(summary = "UPLOAD POST", description = "POST 방식으로 파일 등록")
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public List<UploadResultDTO> upload(@ModelAttribute UploadFileDTO uploadFileDTO){
