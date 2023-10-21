@@ -25,7 +25,7 @@ public class Board extends BaseEntity{
 
     private String user;
 
-    @OneToMany
+    @OneToMany(mappedBy = "board")
     @Builder.Default
     private Set<BoardImage> imageSet = new HashSet<>();
 
