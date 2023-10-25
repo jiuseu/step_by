@@ -27,7 +27,8 @@ public class Board extends BaseEntity{
 
     @OneToMany(mappedBy = "board",
                fetch = FetchType.LAZY,
-               cascade = CascadeType.ALL)
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @Builder.Default
     private Set<BoardImage> imageSet = new HashSet<>();
 
