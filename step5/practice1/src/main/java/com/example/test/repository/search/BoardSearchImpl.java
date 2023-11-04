@@ -4,6 +4,7 @@ import com.example.test.domain.Board;
 import com.example.test.domain.QBoard;
 import com.example.test.domain.QReply;
 import com.example.test.dto.BoardListReplyCountDTO;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
@@ -51,6 +52,18 @@ public class BoardSearchImpl extends Querydsl5RepositorySupport implements Board
                         .or(CheckContent(types,keyword))
                         .or(CheckUser(types,keyword)))
         );
+    }
+
+    private BooleanBuilder allCheck(String[] types, String keyword){
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if((types != null && types.length > 0) && keyword != null){
+            return builder.or(CheckTitle(types, keyword))
+                          .or(CheckContent(types, keyword))
+                          .or(CheckUser(types, keyword));
+        }
+        return null;
     }
 
     private BooleanExpression CheckAll(String[] types, String keyword){
