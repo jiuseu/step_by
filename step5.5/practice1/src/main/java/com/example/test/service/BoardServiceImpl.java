@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 @Log4j2
+@Transactional
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
@@ -53,16 +53,10 @@ public class BoardServiceImpl implements BoardService{
         board.Change(boardDTO.getTitle(), boardDTO.getContent());
 
         if(boardDTO.getFileNames() != null){
-           boardDTO.getFileNames().forEach(fileName ->{
-               String[] arr = fileName.split("_");
-               String destStr = "";
-
-               for(int i = 1; i < arr.length; i++){
-                   destStr += arr[i];
-               }
-
-               board.addImage(arr[0], destStr);
-           });
+            for(String fileName : boardDTO.getFileNames()){
+                String[] arr = fileName.split("_");
+                board.addImage(arr[0],arr[1]);
+            }
         }
 
         boardRepository.save(board);
@@ -116,15 +110,15 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public PageResponseDTO<BoardAllDTO> listWithAll(PageRequestDTO pageRequestDTO){
+    public PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO){
 
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("bno");
 
-        Page<BoardAllDTO> result = boardRepository.searchWithAll(types, keyword, pageable);
+        Page<BoardListAllDTO> result = boardRepository.searchWithAll(types,keyword,pageable);
 
-        return PageResponseDTO.<BoardAllDTO>withAll()
+        return PageResponseDTO.<BoardListAllDTO>withAll()
                 .dtoList(result.getContent())
                 .total((int)result.getTotalElements())
                 .pageRequestDTO(pageRequestDTO)

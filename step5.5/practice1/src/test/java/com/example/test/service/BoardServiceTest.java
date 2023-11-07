@@ -2,7 +2,6 @@ package com.example.test.service;
 
 import com.example.test.domain.Board;
 import com.example.test.dto.BoardDTO;
-import com.example.test.dto.BoardImageDTO;
 import com.example.test.dto.PageRequestDTO;
 import com.example.test.dto.PageResponseDTO;
 import lombok.extern.log4j.Log4j2;
@@ -10,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @SpringBootTest
 @Log4j2
@@ -22,8 +24,8 @@ public class BoardServiceTest {
     @Test
     public void RegisterTest(){
         BoardDTO boardDTO = BoardDTO.builder()
-                .title("Project Service Title")
-                .content("Project Service Content")
+                .title("Service Title")
+                .content("Service Content")
                 .user("ServiceUser")
                 .build();
 
@@ -32,7 +34,6 @@ public class BoardServiceTest {
                 UUID.randomUUID()+"_"+"222.jpg",
                 UUID.randomUUID()+"_"+"333.jpg"
         );
-
         boardDTO.setFileNames(fileNames);
 
         boardService.register(boardDTO);
@@ -40,24 +41,27 @@ public class BoardServiceTest {
 
     @Test
     public void ReadOneTest(){
-       Long bno = 134L;
+       Long bno = 113L;
        BoardDTO boardDTO = boardService.readOne(bno);
 
        log.info(boardDTO);
+       boardDTO.getFileNames().forEach(file ->{
+           log.info(file);
+       });
     }
 
     @Test
     public void ModifyTest(){
 
         BoardDTO boardDTO = BoardDTO.builder()
-                .bno(134L)
+                .bno(113L)
                 .title("Updated Title")
                 .content("Updated Content")
                 .user("freiokjrtoihnyi")
                 .build();
 
         List<String> fileNames = Arrays.asList(
-                UUID.randomUUID()+"_444.jpg"
+                UUID.randomUUID()+"_"+"999.jpg"
         );
         boardDTO.setFileNames(fileNames);
         boardService.modify(boardDTO);
@@ -65,15 +69,15 @@ public class BoardServiceTest {
 
     @Test
     public void DeleteTest(){
-        Long bno = 134L;
+        Long bno = 2L;
         boardService.remove(bno);
     }
 
     @Test
     public void ListTest(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
-                .type("")
-                .keyword("")
+                .type("tc")
+                .keyword("Title")
                 .build();
 
         PageResponseDTO pageResponseDTO = boardService.listWithAll(pageRequestDTO);
