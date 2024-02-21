@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout/basic.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Member Join</title>
+</head>
+<div layout:fragment="content">
+ <div class="row mt-3">
+  <div class="col">
+    <div class="card">
+     <div class="card-header">
+       Member Join
+     </div><!-- card header end -->
+     <div class="card-body">
+      <form id="registerForm" action="/member/join" method="post">
+        <div class="input-group mb-3">
+         <span class="input-group-text">MID</span>
+         <input type="text" class="form-control" name="mid">
+        </div>
+        <div class="input-group mb-3">
+         <span class="input-group-text">MPW</span>
+         <input type="password" class="form-control" name="mpw">
+        </div>
+        <div class="input-group mb-3">
+         <span class="input-group-text">EMAIL</span>
+         <input type="email" class="form-control" name="email">
+        </div>
+        <div class="my-4">
+         <div class="float-end">
+          <button type="submit" class="btn btn-primary submitBtn">Submit</button>
+          <button type="reset" class="btn btn-secondary resetBtn">Reset</button>
+         </div>
+        </div>
+      </form>
+     </div><!-- card body end -->
+    </div><!-- card end -->
+  </div><!-- col end -->
+ </div><!-- row end -->
+</div><!-- layout content end -->
+<script layout:fragment="javascript" th:inline="javascript">
+
+</script>
+</html>
